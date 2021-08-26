@@ -1,0 +1,42 @@
+extract obj_props;
+
+encode_string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+letters = "abcdefghijklmnopqrstuvwxyz";
+
+let string_display = "";
+
+for char in encode_string {
+  if letters.contains(char.lowercase()) {
+    for letter in letters {
+      if char.lowercase() == letter {
+        if char.is_lower() {
+          if letters.index(char) + 13 >= 26 {
+            string_display += "{}".fmt(letters[(letters.index(char) + 13) - 26]);
+          };
+          else {
+            string_display += "{}".fmt(letters[letters.index(char) + 13]);
+          };
+        };
+        else if char.is_upper() {
+          if letters.index(char.lowercase()) + 13 >= 26 {
+            string_display += "{}".fmt(letters[(letters.index(char.lowercase()) + 13) - 26].uppercase());
+          };
+          else {
+            string_display += "{}".fmt(letters[letters.index(char.lowercase()) + 13].uppercase());
+          };
+        };
+      };
+    }; 
+  };
+  else {
+    string_display += char;
+  };
+};
+
+$.add(obj {
+    OBJ_ID: 914,
+    X: 300,
+    Y: 90,
+    TEXT: $.b64encode(string_display),
+});
